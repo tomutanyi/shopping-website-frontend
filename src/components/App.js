@@ -1,6 +1,8 @@
 import Navbar from './landing/navbar/Navbar';
 import Hero from './landing/hero/Hero';
 import TopVendors from './landing/top-vendors/TopVendors';
+import CustomerReviews from './landing/customer-reviews/CustomerReviews';
+import Footer from './landing/footer/Footer';
 
 function App() {
   return (
@@ -8,6 +10,8 @@ function App() {
     <Navbar />
     <Hero />
     <TopVendors />
+    <CustomerReviews />
+    <Footer />
    </div>
   );
 }
