@@ -1,10 +1,13 @@
-import logo from '../logo.svg';
-import Navbar from './navbar/Navbar';
+import Navbar from './landing/navbar/Navbar';
+import Hero from './landing/hero/Hero';
+import TopVendors from './landing/top-vendors/TopVendors';
 
 function App() {
   return (
-   <div>
+   <div className='bg-gray-100'>
     <Navbar />
+    <Hero />
+    <TopVendors />
    </div>
   );
 }
