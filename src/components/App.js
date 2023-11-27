@@ -1,15 +1,19 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import About from './About/About';
 import SignUp from './Signup/SignUp';
 import Login from './Login/Login';
 
 function App() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      {/* <About />
-      <SignUp/> */}
-      <Login />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/About" />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
