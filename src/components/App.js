@@ -1,27 +1,19 @@
-import Navbar from './landing/navbar/Navbar';
-import Hero from './landing/hero/Hero';
-import TopVendors from './landing/top-vendors/TopVendors';
-import CustomerReviews from './landing/customer-reviews/CustomerReviews';
-import Footer from './landing/footer/Footer';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import About from './About/About';
+import SignUp from './Signup/SignUp';
+import Login from './Login/Login';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/About" />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
