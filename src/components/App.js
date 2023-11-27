@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import About from './About/About';
@@ -14,6 +15,23 @@ function App() {
         <Route path="/Login" element={<Login />} />
       </Routes>
     </BrowserRouter>
+
+import Navbar from './landing/navbar/Navbar';
+import Hero from './landing/hero/Hero';
+import TopVendors from './landing/top-vendors/TopVendors';
+import CustomerReviews from './landing/customer-reviews/CustomerReviews';
+import Footer from './landing/footer/Footer';
+
+function App() {
+  return (
+   <div className='bg-gray-100'>
+    <Navbar />
+    <Hero />
+    <TopVendors />
+    <CustomerReviews />
+    <Footer />
+   </div>
+
   );
 }
 
