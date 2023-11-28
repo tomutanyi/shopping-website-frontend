@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast'
 
 const SignUp = () => {
   
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('');
 
   // Handle form submission
@@ -16,7 +19,10 @@ const SignUp = () => {
     // Clear form fields after submission 
     setName('');
     setEmail('');
+    setUsername('');
     setPassword('');
+
+    toast.success('Sign up successful.')
   };
 
   return (
@@ -54,6 +60,21 @@ const SignUp = () => {
             />
           </div>
 
+          {/* Username Field */}
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-gray-600">Username</label>
+            <input
+              type="email"
+              id="email"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+
+
           {/* Password Field */}
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-600">Password</label>
@@ -75,6 +96,7 @@ const SignUp = () => {
           >
             Sign Up
           </button>
+          <p className='mt-2'><Link to='/login'>Already Registered? <span className='text-blue-500 ml-2'>Log in Here</span></Link></p>
         </form>
       </div>
     </div>
