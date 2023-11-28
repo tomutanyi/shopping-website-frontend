@@ -1,37 +1,28 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import About from './About/About';
 import SignUp from './Signup/SignUp';
 import Login from './Login/Login';
-import Navbar from './landing/navbar/Navbar';
-import Hero from './landing/hero/Hero';
-import TopVendors from './landing/top-vendors/TopVendors';
-import CustomerReviews from './landing/customer-reviews/CustomerReviews';
-import Footer from './landing/footer/Footer';
+import Landing from './landing/Landing';
+import NotFound from './NotFound/NotFound';
+import Home from './landing/home/Home';
+import Products from './Products/Products';
+import {Toaster} from 'react-hot-toast'
 
 function App() {
   return (
     <BrowserRouter>
-      
-      <Navbar />
-
+    <Toaster position='top-right' />
       <Routes>
-       
-        <Route path="/" element={<Navigate to="/landing" />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/Login" element={<Login />} />
-        <Route
-          path="/landing"
-          element={
-            <div className='bg-gray-100'>
-              <Hero />
-              <TopVendors />
-              <CustomerReviews />
-              <Footer />
-            </div>
-          }
-        />
+        <Route element={<Landing />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/home' lement={<Home />} />
+          <Route path='/about' element={<About />}/>
+          <Route path='/products' element={<Products />} />
+          <Route path='/signup' element={<SignUp />}/>
+          <Route path='/login' element={<Login />} />
+        </Route>
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
