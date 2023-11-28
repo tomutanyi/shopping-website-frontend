@@ -1,23 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from './logo.webp';
 
 function Navbar() {
   return (
     <div className="bg-blue-500 text-white p-5 rounded-lg">
-      {/* <div className="w-1/12">
-        <img src={logo} className="w-20 h-20 mr-5" alt='' />
-      </div> */}
       <nav className='w-full flex flex-wrap justify-between'>
         <div className='w-1/2 py-4 flex flex-row justify-between px-5'>
           <div>
-            <Link to="/landing" className='bg-blue-100 p-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer rounded-lg'>Products</Link>
+            <Link to="/" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Home</Link>
           </div>
           <div>
-            <Link to="/About" className='bg-blue-100 p-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer rounded-lg'>About Us</Link>
+            <Link to="/products" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Products</Link>
           </div>
           <div>
-            <Link to="/Login" className='bg-blue-100 p-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer rounded-lg'>Login</Link>
+            <Link to="/about" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>About Us</Link>
+          </div>
+          <div>
+            <Link to="/signup" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Sign Up</Link>
+          </div>
+          <div>
+            <Link to="/login" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Login</Link>
           </div>
         </div>
         <div className='w-1/2 flex items-center justify-end p-5'>
