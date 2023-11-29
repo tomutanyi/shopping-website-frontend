@@ -19,6 +19,9 @@ function Navbar() {
           <div>
             <Link to="/Login" className='bg-blue-100 p-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer rounded-lg'>Login</Link>
           </div>
+          <div>
+            <Link to="/Products" className='bg-blue-100 p-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer rounded-lg'>Products</Link>
+          </div>
         </div>
         <div className='w-1/2 flex items-center justify-end p-5'>
           <div className='flex'>
