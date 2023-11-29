@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +15,7 @@ const Login = () => {
     // Clear form fields after submission
     setEmail('');
     setPassword('');
+    toast.success('Log in functionality coming soon!')
   };
 
   return (
@@ -57,6 +60,7 @@ const Login = () => {
           >
             Login
           </button>
+          <p className='mt-2'><Link to='/signup'>Not yet Registered? <span className='text-blue-500 ml-2'>Register here</span></Link></p>
         </form>
       </div>
     </div>

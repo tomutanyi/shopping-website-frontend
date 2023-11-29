@@ -1,20 +1,19 @@
 import React from 'react';
-import shoppingImage from '../Images/shopping.jpg'; 
+import shoppingImage from './online-shop-about-us.svg'
 
 const About = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col lg:flex-row lg:items-center h-screen">
       
-      <div className="w-1/2 p-8"> 
-        <img
-          src={shoppingImage} 
-          alt="About Us"
-          className="rounded-md"
-          style={{ padding: '20px' }}
-        />
-      </div>
+      <div className="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
+          <img
+            src={shoppingImage}
+            alt="hero shoppers community"
+            className="w-full max-w-md rounded-lg shadow-lg"
+          />
+        </div>
 
-      <div className="w-1/2 p-8">
+      <div className="w-full lg:w-1/2 p-8">
         <h2 className="text-4xl font-bold mb-4">About Us</h2>
         <p className="text-gray-700 mb-6">
           Welcome to our platform! We aim to provide a diverse range of products from various sellers,
