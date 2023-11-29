@@ -10,9 +10,6 @@ function Navbar() {
             <Link to="/" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Home</Link>
           </div>
           <div>
-            <Link to="/products" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Products</Link>
-          </div>
-          <div>
             <Link to="/about" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>About Us</Link>
           </div>
           <div>
