@@ -8,7 +8,7 @@ import Hero from './landing/hero/Hero';
 import TopVendors from './landing/top-vendors/TopVendors';
 import CustomerReviews from './landing/customer-reviews/CustomerReviews';
 import Footer from './landing/footer/Footer';
-
+import Products from './Product/ products';
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +21,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Products" element={<Products />} />
         <Route
           path="/landing"
           element={
