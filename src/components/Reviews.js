@@ -11,8 +11,13 @@ const Reviews = () => {
   const reviewsContainerRef = useRef(null);
 
   useEffect(() => {
-    fetch('/reviews') 
-      .then(response => response.json())
+    fetch('http://localhost:5556/reviews') 
+    .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => {
         console.log('Received data:', data);
         setReviews(data);
