@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Reviews from './components/Reviews';
 
@@ -20,7 +20,7 @@ function App() {
         </a>
       </header> */}
       <main>
-        {/* <Reviews /> */}
+        <Reviews />
       </main>
     </div>
   );
