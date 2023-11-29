@@ -6,7 +6,7 @@ import Login from './Login/Login';
 import Landing from './landing/Landing';
 import NotFound from './NotFound/NotFound';
 import Home from './landing/home/Home';
-import Products from './Products/Products';
+import Products from './Product/ products';
 import {Toaster} from 'react-hot-toast'
 
 function App() {
@@ -18,9 +18,10 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/home' lement={<Home />} />
           <Route path='/about' element={<About />}/>
-          <Route path='/products' element={<Products />} />
+          <Route path='/Products' element={<Products />} />
           <Route path='/signup' element={<SignUp />}/>
           <Route path='/login' element={<Login />} />
+        
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
