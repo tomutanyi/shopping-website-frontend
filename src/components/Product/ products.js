@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const Products = () => {
   const [vendorProducts, setVendorProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [vendorName, setVendorName] = useState('');
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/vendor_products')
@@ -14,26 +15,50 @@ const Products = () => {
       .catch((error) => console.error('Error fetching vendor products:', error));
   }, []);
 
-  const placeholderImageUrl = 'https://cdn.pixabay.com/photo/2016/03/27/19/32/book-1283865_640.jpg'; 
+  const placeholderImageUrl = 'https://cdn.pixabay.com/photo/2016/03/27/19/32/book-1283865_640.jpg';
+
+  const filteredProducts = vendorProducts.filter(
+    (product) =>
+      (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase()))
+  );
 
   return (
     <div>
-      <h1>Vendor Products</h1>
+      <h1 className="text-2xl font-bold mb-4">Vendor Products</h1>
+      <div>
+        <label htmlFor="vendorNameInput" className="mr-2">
+          Filter by Vendor Name:
+        </label>
+        <input
+          type="text"
+          id="vendorNameInput"
+          placeholder="Enter vendor name"
+          onChange={(e) => setVendorName(e.target.value)}
+          className="mb-2 p-2 border border-gray-300 rounded"
+        />
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
-          {vendorProducts.map((product) => (
-            <li key={product.product_id}>
+        <div className="flex flex-wrap -mx-4">
+          {filteredProducts.map((product) => (
+            <div key={product.product_id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4">
               <img
                 src={placeholderImageUrl}
                 alt={`Placeholder for ${product.product}`}
-                style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                className="w-full h-32 object-cover mb-2"
               />
-              <strong>{product.product}</strong> by {product.vendor} - Cost: ${product.cost}
-            </li>
+              <p className="text-lg font-bold mb-2">{product.product}</p>
+              <p>By {product.vendor}</p>
+              <p className="text-green-600">Cost: ${product.cost}</p>
+              <p>Rating: {product.rating}</p>
+              <p>Delivery Cost: ${product.delivery_cost}</p>
+              <p>Mode of Payment: {product.mode_of_payment}</p>
+              <p>Discount: {product.discount}</p>
+              <p>Description: {product.product_description}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
