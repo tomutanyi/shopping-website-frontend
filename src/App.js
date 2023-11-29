@@ -20,7 +20,7 @@ function App() {
         </a>
       </header> */}
       <main>
-        <Reviews />
+        {/* <Reviews /> */}
       </main>
     </div>
   );
