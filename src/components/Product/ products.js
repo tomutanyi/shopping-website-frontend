@@ -4,6 +4,7 @@ const Products = () => {
   const [vendorProducts, setVendorProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [vendorName, setVendorName] = useState('');
+  const [productName, setProductName] = useState('');
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/vendor_products')
@@ -19,7 +20,8 @@ const Products = () => {
 
   const filteredProducts = vendorProducts.filter(
     (product) =>
-      (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase()))
+      (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase())) &&
+      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase()))
   );
 
   return (
@@ -37,12 +39,24 @@ const Products = () => {
           className="mb-2 p-2 border border-gray-300 rounded"
         />
       </div>
+      <div>
+        <label htmlFor="productNameInput" className="mr-2">
+          Search by Product Name:
+        </label>
+        <input
+          type="text"
+          id="productNameInput"
+          placeholder="Enter product name"
+          onChange={(e) => setProductName(e.target.value)}
+          className="mb-2 p-2 border border-gray-300 rounded"
+        />
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <div className="flex flex-wrap -mx-4">
-          {filteredProducts.map((product) => (
-            <div key={product.product_id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4">
+          {filteredProducts.map((product, index) => (
+            <div key={`${product.product_id}_${index}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4">
               <img
                 src={placeholderImageUrl}
                 alt={`Placeholder for ${product.product}`}
