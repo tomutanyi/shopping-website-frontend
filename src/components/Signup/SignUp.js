@@ -1,28 +1,46 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 
 const SignUp = () => {
-  
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('');
+
+  let navigate = useNavigate()
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Perform actions on form submission sending data to server
-    console.log('Form submitted:', { name, email, password });
+    console.log('Form submitted:', { username, email, password });
+    fetch('http://127.0.0.1:5000/signup', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      })
+    })
+    .then(r=>{
+      if (r.status === 201){
+        toast.success("Account created successfully!")
+        navigate("/login")
+      } else{
+        toast.error("Error in account registration!")
+      }
+    })
 
     // Clear form fields after submission 
-    setName('');
     setEmail('');
     setUsername('');
     setPassword('');
 
-    toast.success('Sign up successful.')
+    // toast.success('Sign up successful.')
   };
 
   return (
@@ -32,19 +50,6 @@ const SignUp = () => {
 
         {/* Sign Up Form */}
         <form onSubmit={handleSubmit}>
-          {/* Name Field */}
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-600">Name</label>
-            <input
-              type="text"
-              id="name"
-              className="w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
 
           {/* Email Field */}
           <div className="mb-4">
@@ -62,10 +67,10 @@ const SignUp = () => {
 
           {/* Username Field */}
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-600">Username</label>
+            <label htmlFor="username" className="block text-gray-600">Username</label>
             <input
-              type="email"
-              id="email"
+              type="text"
+              id="username"
               className="w-full p-2 border border-gray-300 rounded-md"
               placeholder="Enter your username"
               value={username}
