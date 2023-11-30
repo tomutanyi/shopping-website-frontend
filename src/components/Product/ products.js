@@ -39,7 +39,7 @@ const Products = () => {
   };
 
   return (
-    <div>
+    <div className='p-4'>
       <h1 className="text-2xl font-bold mb-4">Vendor Products</h1>
       <div>
         <label htmlFor="vendorNameInput" className="mr-2">
