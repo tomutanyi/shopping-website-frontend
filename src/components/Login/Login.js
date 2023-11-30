@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  let navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,10 +14,29 @@ const Login = () => {
     
     console.log('Form submitted:', { email, password });
 
+    fetch('http://127.0.0.1:5000/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+    .then(r=>{
+      if (r.status === 200){
+        navigate('/products');
+        toast.success("Logged in Successfully")
+      } else{
+        toast.error("Error Logging In")
+      }
+    })
+    .catch(e=>console.log(e))
+
     // Clear form fields after submission
     setEmail('');
     setPassword('');
-    toast.success('Log in functionality coming soon!')
   };
 
   return (
