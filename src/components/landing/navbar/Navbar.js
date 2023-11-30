@@ -5,6 +5,7 @@ function Navbar() {
   return (
     <div className="bg-blue-500 text-white p-5 rounded-lg">
       <nav className='w-full flex flex-wrap justify-between'>
+        <div className='w-1/2'></div>
         <div className='w-1/2 py-4 flex flex-row justify-between px-5'>
           <div>
             <Link to="/" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Home</Link>
@@ -19,10 +20,10 @@ function Navbar() {
             <Link to="/login" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Login</Link>
           </div>
           <div>
-            <Link to="/Products" className='bg-blue-100 p-2 hover:bg-blue-500 hover:text-white hover:cursor-pointer rounded-lg'>Products</Link>
+            <Link to="/Products" className='bg-none p-2 hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg'>Products</Link>
           </div>
         </div>
-        <div className='w-1/2 flex items-center justify-end p-5'>
+        {/* <div className='w-1/2 flex items-center justify-end p-5'>
           <div className='flex'>
             <input
               className="appearance-none bg-transparent border-b-2 w-full mr-3 py-1 px-2 leading-tight focus:outline-none text-white"
@@ -37,7 +38,7 @@ function Navbar() {
               Search Item
             </button>
           </div>
-        </div>
+        </div> */}
       </nav>
     </div>
   );
