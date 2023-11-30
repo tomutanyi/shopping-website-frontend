@@ -18,6 +18,7 @@ function Navbar({ user, onLogout }) {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/about">About Us</NavLink>
           <NavLink to="/products">Products</NavLink>
+          <NavLink to="/reviews">Reviews</NavLink>
           {user ? (
             <button className="px-2 bg-none hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg" onClick={onLogout}>
               Logout

@@ -8,6 +8,7 @@ import NotFound from './NotFound/NotFound';
 import Home from './landing/home/Home';
 import Products from './Product/ products';
 import toast, {Toaster} from 'react-hot-toast'
+import Reviews from './all-reviews/Reviews';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -50,6 +51,7 @@ function App() {
             <Route path='/Products' element={<Products />} />
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/login' element={<Login onLogin={handleLogIn} />} />
+            <Route path='/reviews' element={<Reviews />} />
           
           </Route>
           <Route path='*' element={<NotFound />} />
