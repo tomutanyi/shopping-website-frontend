@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 
-const Login = () => {
+const Login = ( { onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
@@ -26,8 +26,10 @@ const Login = () => {
     })
     .then(r=>{
       if (r.status === 200){
-        navigate('/products');
-        toast.success("Logged in Successfully")
+        r.json()
+        .then(navigate('/products'))
+        .then(toast.success("Logged in successfully"))
+        .then(user=>onLogin(user));
       } else{
         toast.error("Error Logging In")
       }
