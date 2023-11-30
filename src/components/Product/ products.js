@@ -39,8 +39,8 @@ const Products = () => {
   };
 
   return (
-    <div className='p-4'>
-      <h1 className="text-2xl font-bold mb-4">Vendor Products</h1>
+    <div className='p-4 flex flex-col items-center justify-center'>
+      <h1 className="text-2xl font-bold mb-4">Products</h1>
       <div>
         <label htmlFor="vendorNameInput" className="mr-2">
           Filter by Vendor Name:
