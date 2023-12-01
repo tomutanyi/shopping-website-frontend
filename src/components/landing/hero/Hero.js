@@ -1,3 +1,4 @@
+import React from 'react';
 import hero from './hero-image.svg';
 
 function Hero() {
@@ -5,14 +6,14 @@ function Hero() {
     <div className="bg-gray-100">
       <div className="container mx-auto py-16">
         <div className="flex flex-col lg:flex-row justify-between items-center">
-        <div className="lg:w-1/2 mb-8 lg:mb-0">
+          <div className="lg:w-1/2 mb-8 lg:mb-0">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-800 leading-tight mb-4">
-                Shoppers:  Your Smart Shopping Companion
+              Shoppers: Your Smart Shopping Companion
             </h1>
             <p className="italic text-gray-600 text-lg mb-6 lg:text-left text-center">
-                Elevating Your Shopping Decisions
+              Elevating Your Shopping Decisions
             </p>
-        </div>
+          </div>
 
           <div className="lg:w-1/2 flex justify-center">
             <img
@@ -39,10 +40,19 @@ function Hero() {
             trusted companion for maximizing value in every purchase.
           </p>
         </div>
+
+        <div className="mt-8">
+          <iframe
+            title="Chatbot"
+            src="https://www.chatbase.co/chatbot-iframe/PKzNYDIX68UUx_zQ4iOWP"
+            width="100%"
+            style={{ height: '100%', minHeight: '700px' }}
+            frameBorder="0"
+          ></iframe>
+        </div>
       </div>
     </div>
   );
 }
 
 export default Hero;
-
