@@ -10,7 +10,7 @@ const Products = () => {
   const [sortOrder, setSortOrder] = useState('asc'); 
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/vendor_products')
+    fetch('https://shopping-database32.onrender.com/vendor_products')
       .then((response) => response.json())
       .then((data) => {
         setVendorProducts(data);
@@ -19,7 +19,7 @@ const Products = () => {
       .catch((error) => console.error('Error fetching vendor products:', error));
   }, []);
 
-  const placeholderImageUrl = 'https://cdn.pixabay.com/photo/2016/03/27/19/32/book-1283865_640.jpg';
+  const placeholderImageUrl = 'https://i.pinimg.com/474x/8a/2a/73/8a2a73c4e85a9efc11a230e285a0db53.jpg';
 
   const filteredProducts = vendorProducts.filter(
     (product) =>
