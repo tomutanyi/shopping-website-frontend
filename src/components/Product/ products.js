@@ -94,9 +94,18 @@ const Products = () => {
           />
         </div>
         <div>
-          <button onClick={handleSortOrderChange} className="text-blue-500 px-4 py-2 rounded border border-blue-500">
-            Sort by Cost {sortOrder === 'asc' ? '↓' : '↑'}
-          </button>
+          <label htmlFor="sortOrderSelect" className="mr-2">
+            Sort by Cost:
+          </label>
+          <select
+            id="sortOrderSelect"
+            value={sortOrder}
+            onChange={handleSortOrderChange}
+            className="p-2 border border-gray-300 rounded"
+          >
+            <option value="asc">Low to High</option>
+            <option value="desc">High to Low</option>
+          </select>
         </div>
       </div>
       {loading ? (
