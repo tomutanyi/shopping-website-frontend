@@ -7,7 +7,8 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [vendorName, setVendorName] = useState('');
   const [productName, setProductName] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc'); 
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [minRating, setMinRating] = useState(0);
 
   useEffect(() => {
     fetch('https://shopping-database32.onrender.com/vendor_products')
@@ -24,10 +25,10 @@ const Products = () => {
   const filteredProducts = vendorProducts.filter(
     (product) =>
       (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase())) &&
-      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase()))
+      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase())) &&
+      (product.rating >= minRating)
   );
 
-  // Sort filteredProducts by cost
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOrder === 'asc') {
       return a.cost - b.cost;
@@ -40,19 +41,16 @@ const Products = () => {
     setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
   };
 
-// Pagination
-  const itemsPerPage = 20
+  const itemsPerPage = 20;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = sortedProducts.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(sortedProducts.length / itemsPerPage);
 
-
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % sortedProducts.length;
     setItemOffset(newOffset);
   };
-
 
   return (
     <div className='p-4 flex flex-col items-center'>
@@ -83,6 +81,19 @@ const Products = () => {
           />
         </div>
         <div>
+          <label htmlFor="minRatingInput" className="mr-2">
+            Min Rating:
+          </label>
+          <input
+            type="number"
+            id="minRatingInput"
+            placeholder="Enter min rating"
+            value={minRating}
+            onChange={(e) => setMinRating(parseFloat(e.target.value))}
+            className="p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div>
           <button onClick={handleSortOrderChange} className="text-blue-500 px-4 py-2 rounded border border-blue-500">
             Sort by Cost {sortOrder === 'asc' ? '↓' : '↑'}
           </button>
@@ -107,12 +118,12 @@ const Products = () => {
               <p className="text-lg font-bold mb-2">{product.product}</p>
               <p className="text-sm text-gray-600 mb-2">{product.vendor}</p>
               <p className="text-green-600 font-semibold mb-2">Price: ${product.cost}</p>
-                <ReactStars
-                  count={5}
-                  isHalf={true}
-                  value={product.rating}
-                  edit={false}
-                />
+              <ReactStars
+                count={5}
+                isHalf={true}
+                value={product.rating}
+                edit={false}
+              />
               <p className="text-gray-700 mb-2">Delivery Cost: ${product.delivery_cost}</p>
               <p className="text-gray-700 mb-2">Mode of Payment: {product.mode_of_payment}</p>
               <p className="text-gray-700 line-clamp-3">Description: {product.product_description}</p>
