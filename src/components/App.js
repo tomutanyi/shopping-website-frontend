@@ -16,20 +16,24 @@ function App() {
   
 
   useEffect(()=>{
-    fetch('http://127.0.0.1:5000/session')
+    fetch('http://127.0.0.1:5000/session', {
+      credentials: 'include'
+    })
     .then((r)=>{
       if (r.ok){
-        return r.json();
+       r.json();
         // .then((user)=>setUser(user))
       }
       throw new Error('User not authenticated');
     })
-    .then((user)=>setUser(user))
+    .then((userData)=>setUser(userData))
     .catch((e)=>{
       console.error('Session check error: ', e);
       setUser(null)
     })
   }, []);
+
+  console.log(user)
 
 
   function handleLogIn(user){
