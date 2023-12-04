@@ -26,11 +26,11 @@ const Products = () => {
 
   const filteredProducts = vendorProducts.filter(
     (product) =>
-      (!selectedFilter || selectedFilter === 'vendorName') &&
-      (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase())) ||
-      (!selectedFilter || selectedFilter === 'productName') &&
-      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase())) ||
-      (!selectedFilter || selectedFilter === 'minRating') && product.rating >= minRating
+      ((!selectedFilter || selectedFilter === 'vendorName') &&
+        (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase()))) ||
+      ((!selectedFilter || selectedFilter === 'productName') &&
+        (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase()))) ||
+      ((!selectedFilter || selectedFilter === 'minRating') && product.rating >= minRating)
   );
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -130,11 +130,13 @@ const Products = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className='flex flex-wrap gap-4 justify-center'>
+        <div className='flex flex-wrap justify-center'>
           {currentItems.map((product, index) => (
             <div
               key={`${product.product_id}_${index}`}
-              className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4 border border-gray-300 rounded shadow-md'
+              className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-4 border border-gray-300 rounded shadow-md ${
+                index % 2 === 0 ? 'mr-auto' : 'ml-auto'
+              }`}
             >
               <div className='relative'>
                 <img
