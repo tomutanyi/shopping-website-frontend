@@ -6,7 +6,7 @@ function CustomerReviews() {
   return (
     <div>
         <h1 className='text-4xl font-bold text-center mb-5'>What our users say about us...</h1>
-        <Carousel showArrows={true} autoPlay={true} infiniteLoop={true} stopOnHover={true} swipeable={true}>
+        <Carousel showThumbs={false} showArrows={true} autoPlay={true} infiniteLoop={true} stopOnHover={true} swipeable={true}>
             <div className="flex flex-row justify-center">
                 <div className="flex w-1/2 justify-center border shadow-lg p-4">
                     <div className="flex flex-col justify-center w-1/12 mr-3 items-center">
