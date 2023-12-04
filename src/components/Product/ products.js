@@ -73,7 +73,7 @@ const Products = () => {
           >
             <option value="">Select Filter</option>
             <option value="vendorName">Vendor Name</option>
-            <option value="productName">Search by Product Name</option>
+            <option value="productName">Product Name</option>
             <option value="minRating">Min Rating</option>
           </select>
         </div>
