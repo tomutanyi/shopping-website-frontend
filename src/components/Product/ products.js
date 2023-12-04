@@ -9,10 +9,9 @@ const Products = () => {
   const [productName, setProductName] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [minRating, setMinRating] = useState(0);
-  const [selectedFilter, setSelectedFilter] = useState('');
 
   useEffect(() => {
-    fetch('https://shopping-database32.onrender.com/vendor_products')
+    fetch('http://127.0.0.1:5000/vendor_products')
       .then((response) => response.json())
       .then((data) => {
         setVendorProducts(data);
@@ -21,15 +20,16 @@ const Products = () => {
       .catch((error) => console.error('Error fetching vendor products:', error));
   }, []);
 
-  const placeholderImageUrl = 'https://i.pinimg.com/474x/8a/2a/73/8a2a73c4e85a9efc11a230e285a0db53.jpg';
+  const placeholderImageUrl = 'https://cdn.pixabay.com/photo/2016/03/27/19/32/book-1283865_640.jpg';
 
   const filteredProducts = vendorProducts.filter(
     (product) =>
-      (selectedFilter === 'vendorName' && (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase()))) ||
-      (selectedFilter === 'productName' && (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase()))) ||
-      (selectedFilter === 'minRating' && product.rating >= minRating)
+      (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase())) &&
+      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase())) &&
+      (minRating === 0 || product.rating >= minRating)
   );
 
+  // Sort filteredProducts by cost
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOrder === 'asc') {
       return a.cost - b.cost;
@@ -42,11 +42,8 @@ const Products = () => {
     setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
   };
 
-  const handleFilterChange = (filter) => {
-    setSelectedFilter(filter);
-  };
-
-  const itemsPerPage = 20;
+  // Pagination
+  const itemsPerPage = 15;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = sortedProducts.slice(itemOffset, endOffset);
@@ -57,77 +54,60 @@ const Products = () => {
     setItemOffset(newOffset);
   };
 
+  const handleRatingChange = (newRating) => {
+    setMinRating(newRating);
+  };
+
   return (
     <div className='p-4 flex flex-col items-center'>
       <h1 className="text-2xl font-bold mb-4">Products</h1>
       <div className="mb-4 flex flex-wrap gap-4">
         <div>
-          <label htmlFor="filterSelect" className="mr-2">
-            Choose Filter:
+          <label htmlFor="vendorNameInput" className="mr-2">
+            Filter by Vendor Name:
           </label>
-          <select
-            id="filterSelect"
-            value={selectedFilter}
-            onChange={(e) => handleFilterChange(e.target.value)}
+          <input
+            type="text"
+            id="vendorNameInput"
+            placeholder="Enter vendor name"
+            onChange={(e) => setVendorName(e.target.value)}
             className="p-2 border border-gray-300 rounded"
-          >
-            <option value="">Select Filter</option>
-            <option value="vendorName">Filter by Vendor Name</option>
-            <option value="productName">Search by Product Name</option>
-            <option value="minRating">Min Rating</option>
-          </select>
+          />
         </div>
-        {selectedFilter && (
-          <div>
-            {selectedFilter === 'vendorName' && (
-              <input
-                type="text"
-                id="vendorNameInput"
-                placeholder="Enter vendor name"
-                onChange={(e) => setVendorName(e.target.value)}
-                className="p-2 border border-gray-300 rounded"
-              />
-            )}
-            {selectedFilter === 'productName' && (
-              <input
-                type="text"
-                id="productNameInput"
-                placeholder="Enter product name"
-                onChange={(e) => setProductName(e.target.value)}
-                className="p-2 border border-gray-300 rounded"
-              />
-            )}
-            {selectedFilter === 'minRating' && (
-              <input
-                type="number"
-                id="minRatingInput"
-                placeholder="Enter min rating"
-                value={minRating}
-                onChange={(e) => setMinRating(parseFloat(e.target.value))}
-                className="p-2 border border-gray-300 rounded"
-              />
-            )}
-          </div>
-        )}
         <div>
-          <label htmlFor="sortOrderSelect" className="mr-2">
-            Sort by Cost:
+          <label htmlFor="productNameInput" className="mr-2">
+            Search by Product Name:
           </label>
-          <select
-            id="sortOrderSelect"
-            value={sortOrder}
-            onChange={handleSortOrderChange}
+          <input
+            type="text"
+            id="productNameInput"
+            placeholder="Enter product name"
+            onChange={(e) => setProductName(e.target.value)}
             className="p-2 border border-gray-300 rounded"
-          >
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
+          />
+        </div>
+        <div>
+          <label htmlFor="minRatingInput" className="mr-2">
+            Filter by Min Rating:
+          </label>
+          <ReactStars
+            count={5}
+            onChange={handleRatingChange}
+            size={24}
+            activeColor="#ffd700"
+            value={minRating}
+          />
+        </div>
+        <div>
+          <button onClick={handleSortOrderChange} className="text-blue-500 px-4 py-2 rounded border border-blue-500">
+            Sort by Cost {sortOrder === 'asc' ? '↓' : '↑'}
+          </button>
         </div>
       </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           {currentItems.map((product, index) => (
             <div key={`${product.product_id}_${index}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4 border border-gray-300 rounded shadow-md">
               <div className="relative">
@@ -137,7 +117,7 @@ const Products = () => {
                   className="w-full h-48 object-cover mb-2 rounded-t"
                 />
                 <div className="absolute top-0 right-0 p-2 bg-blue-500 text-white rounded-tr">
-                  {product.discount}% Off
+                  {Math.ceil((product.discount)*100)}% Off
                 </div>
               </div>
               <p className="text-lg font-bold mb-2">{product.product}</p>
@@ -160,7 +140,7 @@ const Products = () => {
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={2}
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
