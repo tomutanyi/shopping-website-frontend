@@ -10,7 +10,9 @@ const Products = () => {
   const [sortOrder, setSortOrder] = useState('asc'); 
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/vendor_products')
+    fetch('http://127.0.0.1:5000/vendor_products',{
+      credentials: 'include',
+    })
       .then((response) => response.json())
       .then((data) => {
         setVendorProducts(data);
@@ -110,7 +112,7 @@ const Products = () => {
                 <ReactStars
                   count={5}
                   isHalf={true}
-                  value={product.rating}
+                  value={parseFloat(product.rating)}
                   edit={false}
                 />
               <p className="text-gray-700 mb-2">Delivery Cost: ${product.delivery_cost}</p>
