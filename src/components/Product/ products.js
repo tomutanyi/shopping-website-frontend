@@ -41,7 +41,7 @@ const Products = () => {
   };
 
 // Pagination
-  const itemsPerPage = 20
+  const itemsPerPage = 15
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = sortedProducts.slice(itemOffset, endOffset);
@@ -91,7 +91,7 @@ const Products = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           {currentItems.map((product, index) => (
             <div key={`${product.product_id}_${index}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4 border border-gray-300 rounded shadow-md">
               <div className="relative">
@@ -101,7 +101,7 @@ const Products = () => {
                   className="w-full h-48 object-cover mb-2 rounded-t"
                 />
                 <div className="absolute top-0 right-0 p-2 bg-blue-500 text-white rounded-tr">
-                  {product.discount}% Off
+                  {Math.ceil((product.discount)*100)}% Off
                 </div>
               </div>
               <p className="text-lg font-bold mb-2">{product.product}</p>
@@ -124,7 +124,7 @@ const Products = () => {
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={2}
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
