@@ -19,10 +19,16 @@ function App() {
     fetch('http://127.0.0.1:5000/session')
     .then((r)=>{
       if (r.ok){
-        r.json()
-        .then((user)=>setUser(user))
+        return r.json();
+        // .then((user)=>setUser(user))
       }
-    });
+      throw new Error('User not authenticated');
+    })
+    .then((user)=>setUser(user))
+    .catch((e)=>{
+      console.error('Session check error: ', e);
+      setUser(null)
+    })
   }, []);
 
 
