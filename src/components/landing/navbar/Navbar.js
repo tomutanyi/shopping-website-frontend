@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import History from '../../userSearchHistory/History';
 
 function Navbar({ user, onLogout }) {
   return (
@@ -18,6 +19,7 @@ function Navbar({ user, onLogout }) {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/about">About Us</NavLink>
           <NavLink to="/products">Products</NavLink>
+          <NavLink to="/history">History</NavLink>
           {user ? (
             <button
               className="px-2 bg-none hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg"
