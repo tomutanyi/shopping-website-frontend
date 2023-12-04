@@ -9,6 +9,7 @@ const Products = () => {
   const [productName, setProductName] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [minRating, setMinRating] = useState(0);
+  const [selectedFilter, setSelectedFilter] = useState('');
 
   useEffect(() => {
     fetch('https://shopping-database32.onrender.com/vendor_products')
@@ -24,9 +25,9 @@ const Products = () => {
 
   const filteredProducts = vendorProducts.filter(
     (product) =>
-      (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase())) &&
-      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase())) &&
-      (product.rating >= minRating)
+      (!selectedFilter || selectedFilter === 'vendorName') && (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase())) ||
+      (!selectedFilter || selectedFilter === 'productName') && (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase())) ||
+      (!selectedFilter || selectedFilter === 'minRating') && (product.rating >= minRating)
   );
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -39,6 +40,10 @@ const Products = () => {
 
   const handleSortOrderChange = () => {
     setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+  };
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
   };
 
   const itemsPerPage = 20;
@@ -57,42 +62,53 @@ const Products = () => {
       <h1 className="text-2xl font-bold mb-4">Products</h1>
       <div className="mb-4 flex flex-wrap gap-4">
         <div>
-          <label htmlFor="vendorNameInput" className="mr-2">
-            Filter by Vendor Name:
+          <label htmlFor="filterSelect" className="mr-2">
+            Choose Filter:
           </label>
-          <input
-            type="text"
-            id="vendorNameInput"
-            placeholder="Enter vendor name"
-            onChange={(e) => setVendorName(e.target.value)}
+          <select
+            id="filterSelect"
+            value={selectedFilter}
+            onChange={(e) => handleFilterChange(e.target.value)}
             className="p-2 border border-gray-300 rounded"
-          />
+          >
+            <option value="">Select Filter</option>
+            <option value="vendorName">Filter by Vendor Name</option>
+            <option value="productName">Search by Product Name</option>
+            <option value="minRating">Min Rating</option>
+          </select>
         </div>
-        <div>
-          <label htmlFor="productNameInput" className="mr-2">
-            Search by Product Name:
-          </label>
-          <input
-            type="text"
-            id="productNameInput"
-            placeholder="Enter product name"
-            onChange={(e) => setProductName(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-          />
-        </div>
-        <div>
-          <label htmlFor="minRatingInput" className="mr-2">
-            Min Rating:
-          </label>
-          <input
-            type="number"
-            id="minRatingInput"
-            placeholder="Enter min rating"
-            value={minRating}
-            onChange={(e) => setMinRating(parseFloat(e.target.value))}
-            className="p-2 border border-gray-300 rounded"
-          />
-        </div>
+        {selectedFilter && (
+          <div>
+            {selectedFilter === 'vendorName' && (
+              <input
+                type="text"
+                id="vendorNameInput"
+                placeholder="Enter vendor name"
+                onChange={(e) => setVendorName(e.target.value)}
+                className="p-2 border border-gray-300 rounded"
+              />
+            )}
+            {selectedFilter === 'productName' && (
+              <input
+                type="text"
+                id="productNameInput"
+                placeholder="Enter product name"
+                onChange={(e) => setProductName(e.target.value)}
+                className="p-2 border border-gray-300 rounded"
+              />
+            )}
+            {selectedFilter === 'minRating' && (
+              <input
+                type="number"
+                id="minRatingInput"
+                placeholder="Enter min rating"
+                value={minRating}
+                onChange={(e) => setMinRating(parseFloat(e.target.value))}
+                className="p-2 border border-gray-300 rounded"
+              />
+            )}
+          </div>
+        )}
         <div>
           <label htmlFor="sortOrderSelect" className="mr-2">
             Sort by Cost:
