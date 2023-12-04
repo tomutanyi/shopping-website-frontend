@@ -15,6 +15,7 @@ const Login = ( { onLogin }) => {
     console.log('Form submitted:', { email, password });
 
     fetch('http://127.0.0.1:5000/login', {
+      credentials: 'include',
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -26,15 +27,20 @@ const Login = ( { onLogin }) => {
     })
     .then(r=>{
       if (r.status === 200){
-        r.json()
-        .then(navigate('/products'))
-        .then(toast.success("Logged in successfully"))
-        .then(user=>onLogin(user));
+        return r.json();
       } else{
-        toast.error("Error Logging In")
+        throw new Error("Error logging in");
       }
     })
-    .catch(e=>console.log(e))
+    .then((user)=>{
+      onLogin(user)
+      toast.success("Logged in successfully");
+      navigate("/products")
+    })
+    .catch((e)=>{
+      console.error("Log in error: ", e);
+      toast.error("Error logging in")
+    })
 
     // Clear form fields after submission
     setEmail('');

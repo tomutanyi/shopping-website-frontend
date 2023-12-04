@@ -12,7 +12,9 @@ const Products = () => {
   const [selectedFilter, setSelectedFilter] = useState('');
 
   useEffect(() => {
-    fetch('https://shopping-database32.onrender.com/vendor_products')
+    fetch('https://shopping-database32.onrender.com/vendor_products',{
+      credentials: 'include',
+    })
       .then((response) => response.json())
       .then((data) => {
         setVendorProducts(data);
@@ -45,11 +47,11 @@ const Products = () => {
     setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
   };
 
+// Pagination
+  const itemsPerPage = 15
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
   };
-
-  const itemsPerPage = 20;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = sortedProducts.slice(itemOffset, endOffset);
@@ -161,7 +163,7 @@ const Products = () => {
         breakLabel='...'
         nextLabel='next >'
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={2}
         pageCount={pageCount}
         previousLabel='< previous'
         renderOnZeroPageCount={null}
