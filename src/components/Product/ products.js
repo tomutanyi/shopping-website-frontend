@@ -63,7 +63,7 @@ const Products = () => {
       <div className="mb-4 flex flex-wrap gap-4">
         <div>
           <label htmlFor="filterSelect" className="mr-2">
-            Choose Filter:
+            Search by:
           </label>
           <select
             id="filterSelect"
