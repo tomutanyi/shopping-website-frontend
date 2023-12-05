@@ -1,0 +1,17 @@
+.history-card {
+  border: 1px solid #fff; /* initial border color */
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.history-card:hover {
+  border: 1px solid #808080; /* border color on hover */
+}
+
+.date-time {
+  float: right;
+  color: green; /* text color set to green */
+}
