@@ -22,7 +22,6 @@ function App() {
     .then((r)=>{
       if (r.ok){
        r.json();
-        // .then((user)=>setUser(user))
       }
       throw new Error('User not authenticated');
     })
