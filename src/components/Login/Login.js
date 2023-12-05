@@ -42,7 +42,7 @@ const Login = ( { onLogin }) => {
       toast.error("Error logging in")
     })
 
-    // Clear form fields after submission
+    // Clear form fields
     setEmail('');
     setPassword('');
   };
