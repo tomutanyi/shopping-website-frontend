@@ -91,7 +91,7 @@ const Products = () => {
                   className="w-full h-48 object-cover mb-2 rounded-t"
                 />
                 <div className="absolute top-0 right-0 p-2 bg-blue-500 text-white rounded-tr">
-                  {Math.ceil((product.discount)*100)}% Off
+                  {Math.ceil((product.discount))}% Off
                 </div>
               </div>
               <p className="text-lg font-bold mb-2">{product.product}</p>
