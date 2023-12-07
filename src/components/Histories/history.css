@@ -1,8 +1,6 @@
-/* history.css */
-
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif; /* Default font */
+  font-family: 'Arial', sans-serif;
 }
 
 .login-link {
@@ -23,27 +21,22 @@ body {
 
 .font1 {
   font-family: 'Arial', sans-serif;
-  /* Additional styles for font1 as needed */
 }
 
 .font2 {
   font-family: 'Times New Roman', serif;
-  /* Additional styles for font2 as needed */
 }
 
 .font3 {
   font-family: 'Verdana', sans-serif;
-  /* Additional styles for font3 as needed */
 }
 
 .font4 {
   font-family: 'Courier New', monospace;
-  /* Additional styles for font4 as needed */
 }
 
 .font5 {
   font-family: 'Georgia', serif;
-  /* Additional styles for font5 as needed */
 }
 
 .history-card {
@@ -52,7 +45,6 @@ body {
   border: 1px solid #ddd;
   padding: 10px;
   width: 50%;
-  /* Additional styles for history-card as needed */
 }
 
 .history-item {
@@ -70,10 +62,8 @@ body {
 
 .date-time {
   color: #aaa;
-  /* Additional styles for date-time as needed */
 }
 
 .history-detail {
   margin-top: 20px;
-  /* Additional styles for history-detail as needed */
 }
