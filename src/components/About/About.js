@@ -1,5 +1,5 @@
 import React from 'react';
-import shoppingImage from './online-shop-about-us.svg'
+import shoppingImage from './online-shop-about-us.svg';
 
 const About = () => {
   return (

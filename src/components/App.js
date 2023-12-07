@@ -6,8 +6,10 @@ import Login from './Login/Login';
 import Landing from './landing/Landing';
 import NotFound from './NotFound/NotFound';
 import Home from './landing/home/Home';
-import Products from './Product/ products';
-import toast, {Toaster} from 'react-hot-toast'
+import Products from './Product/ Products';
+import toast, {Toaster} from 'react-hot-toast';
+import History from './Histories/History';
+import { AuthProvider } from './Histories/AuthContext';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -21,7 +23,7 @@ function App() {
     })
     .then((r)=>{
       if (r.ok){
-       r.json();
+       return r.json();
       }
       throw new Error('User not authenticated');
     })
@@ -49,6 +51,7 @@ function App() {
   }
 
   return (
+   <AuthProvider>
     <>
       <Toaster position='top-right' />
         <Routes>
@@ -56,14 +59,16 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/home' lement={<Home />} />
             <Route path='/about' element={<About />}/>
-            <Route path='/Products' element={<Products />} />
+            <Route path='/products' element={<Products />} />
             <Route path='/signup' element={<SignUp />}/>
+            <Route path='/history' element={<History />}/>
             <Route path='/login' element={<Login onLogin={handleLogIn} />} />
           
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </>
+   </AuthProvider>
   );
 }
 
