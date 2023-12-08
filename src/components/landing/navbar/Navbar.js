@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 function Navbar({ user, onLogout }) {
   return (
     <div className="bg-blue-500 text-white p-5 rounded-lg">
@@ -15,9 +16,11 @@ function Navbar({ user, onLogout }) {
           )}
         </div>
         <div className="md:w-1/2 py-4 flex flex-col md:flex-row justify-between md:px-5">
+          
           <NavLink to="/">Home</NavLink>
           <NavLink to="/about">About Us</NavLink>
           <NavLink to="/products">Products</NavLink>
+          <NavLink to="/history">History</NavLink>
           {user ? (
             <button
               className="px-2 bg-none hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg"
