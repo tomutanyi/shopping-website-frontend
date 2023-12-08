@@ -6,8 +6,10 @@ import Login from './Login/Login';
 import Landing from './landing/Landing';
 import NotFound from './NotFound/NotFound';
 import Home from './landing/home/Home';
-import Products from './Product/ products';
-import toast, {Toaster} from 'react-hot-toast'
+import Products from './Product/ Products';
+import toast, {Toaster} from 'react-hot-toast';
+import History from './Histories/History';
+import { AuthProvider } from './Histories/AuthContext';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -16,14 +18,23 @@ function App() {
   
 
   useEffect(()=>{
-    fetch('http://127.0.0.1:5000/session')
+    fetch('http://127.0.0.1:5000/session', {
+      credentials: 'include'
+    })
     .then((r)=>{
       if (r.ok){
-        r.json()
-        .then((user)=>setUser(user))
+       return r.json();
       }
-    });
+      throw new Error('User not authenticated');
+    })
+    .then((userData)=>setUser(userData))
+    .catch((e)=>{
+      console.error('Session check error: ', e);
+      setUser(null)
+    })
   }, []);
+
+  console.log(user)
 
 
   function handleLogIn(user){
@@ -34,12 +45,13 @@ function App() {
     fetch('http://127.0.0.1:5000/logout', {
       method: "DELETE"
     })
-    .then(toast("Logged out successfully!"))
+    .then(toast.success("Logged out successfully!"))
     .then(setUser(null))
     .then(navigate('/'))
   }
 
   return (
+   <AuthProvider>
     <>
       <Toaster position='top-right' />
         <Routes>
@@ -47,14 +59,16 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/home' lement={<Home />} />
             <Route path='/about' element={<About />}/>
-            <Route path='/Products' element={<Products />} />
+            <Route path='/products' element={<Products />} />
             <Route path='/signup' element={<SignUp />}/>
+            <Route path='/history' element={<History />}/>
             <Route path='/login' element={<Login onLogin={handleLogIn} />} />
           
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </>
+   </AuthProvider>
   );
 }
 
