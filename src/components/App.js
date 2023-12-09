@@ -16,7 +16,7 @@ function App() {
   
 
   useEffect(()=>{
-    fetch('http://127.0.0.1:5000/session')
+    fetch('https://shopping-database32.onrender.com/session')
     .then((r)=>{
       if (r.ok){
         r.json()
@@ -31,7 +31,7 @@ function App() {
   }
 
   function handleLogout(){
-    fetch('http://127.0.0.1:5000/logout', {
+    fetch('https://shopping-database32.onrender.com/logout', {
       method: "DELETE"
     })
     .then(toast("Logged out successfully!"))
@@ -45,7 +45,7 @@ function App() {
         <Routes>
           <Route element={<Landing user={user} onLogout={handleLogout} />}>
             <Route path='/' element={<Home />} />
-            <Route path='/home' lement={<Home />} />
+            <Route path='/home' element={<Home />} />
             <Route path='/about' element={<About />}/>
             <Route path='/Products' element={<Products />} />
             <Route path='/signup' element={<SignUp />}/>
