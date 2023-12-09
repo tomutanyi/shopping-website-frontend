@@ -9,9 +9,9 @@ function Footer() {
             <div className='flex flex-row justify-evenly'>
                 <div className='flex flex-col'>
                     <h1 className='mb-2 font-bold'>Subscribe to our Newsletter</h1>
-                    <div className='flex'>
-                        <input class="appearance-none bg-transparent border-b-2 w-2/3  mr-3 py-1 px-2 leading-tight focus:outline-none" type="email" placeholder="example@email.com" aria-label="Email address"/>
-                        <button class="flex-shrink-0 bg-transparent hover:bg-white hover:text-blue-500 border text-sm text-white py-1 px-2 rounded" type="button">
+                    <div className='flex flex-col'>
+                        <input className="appearance-none bg-transparent border-b-2 w-2/3  mr-3 py-1 px-2 leading-tight focus:outline-none" type="email" placeholder="example@email.com" aria-label="Email address"/>
+                        <button className="flex-shrink-0 bg-transparent hover:bg-white hover:text-blue-500 border text-sm text-white py-1 px-2 rounded mt-2 w-1/3" type="button">
                         Subscribe
                         </button>
                     </div>
