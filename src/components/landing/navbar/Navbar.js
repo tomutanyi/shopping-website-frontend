@@ -8,7 +8,8 @@ function Navbar({ user, onLogout }) {
         <div className="w-1/2 py-4 flex flex-row justify-between px-5">
           {user ? (
             <div>
-              <p>Welcome, {user.username}</p>
+              {console.log(user)}
+              <p style={{ color: 'black' }}>Welcome, {user.username}!</p>
             </div>
           ) : (
             <div></div>
@@ -24,8 +25,8 @@ function Navbar({ user, onLogout }) {
             </button>
           ) : (
             <div className="flex flex-row justify-end">
-              <NavLink to="/signup">Sign Up</NavLink>
-              <NavLink to="/login">Login</NavLink>
+              {!user && <NavLink to="/signup">Sign Up</NavLink>}
+              {!user && <NavLink to="/login">Login</NavLink>}
             </div>
           )}
         </div>

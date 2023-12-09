@@ -7,7 +7,8 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [vendorName, setVendorName] = useState('');
   const [productName, setProductName] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc'); 
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [minRating, setMinRating] = useState('');
 
   useEffect(() => {
     fetch('https://shopping-database32.onrender.com/vendor_products')
@@ -24,7 +25,8 @@ const Products = () => {
   const filteredProducts = vendorProducts.filter(
     (product) =>
       (vendorName === '' || product.vendor.toLowerCase().includes(vendorName.toLowerCase())) &&
-      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase()))
+      (productName === '' || product.product.toLowerCase().includes(productName.toLowerCase())) &&
+      product.rating >= minRating
   );
 
   // Sort filteredProducts by cost
@@ -54,6 +56,9 @@ const Products = () => {
   };
 
 
+  const ratingOptions = [0, 1, 2, 3, 4, 5];
+
+
   return (
     <div className='p-4 flex flex-col items-center'>
       <h1 className="text-2xl font-bold mb-4">Products</h1>
@@ -81,6 +86,24 @@ const Products = () => {
             onChange={(e) => setProductName(e.target.value)}
             className="p-2 border border-gray-300 rounded"
           />
+        </div>
+        <div>
+          <label htmlFor="minRatingInput" className="mr-2">
+            Min Rating:
+          </label>
+          <select
+            id="minRatingInput"
+            value={minRating}
+            onChange={(e) => setMinRating(e.target.value)}
+            className="p-2 border border-gray-300 rounded"
+          >
+            <option value="">Select Min Rating</option>
+            {ratingOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <button onClick={handleSortOrderChange} className="text-blue-500 px-4 py-2 rounded border border-blue-500">
