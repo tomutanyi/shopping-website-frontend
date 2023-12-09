@@ -9,13 +9,12 @@ const SignUp = () => {
 
   let navigate = useNavigate()
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Perform actions on form submission sending data to server
+
     console.log('Form submitted:', { username, email, password });
-    fetch('http://127.0.0.1:5000/signup', {
+    fetch('https://shopping-database32.onrender.com/signup', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -35,12 +34,11 @@ const SignUp = () => {
       }
     })
 
-    // Clear form fields after submission 
+
     setEmail('');
     setUsername('');
     setPassword('');
 
-    // toast.success('Sign up successful.')
   };
 
   return (
@@ -48,10 +46,8 @@ const SignUp = () => {
       <div className="w-96 p-8 bg-white shadow-md rounded-md">
         <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
 
-        {/* Sign Up Form */}
         <form onSubmit={handleSubmit}>
 
-          {/* Email Field */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-600">Email</label>
             <input
@@ -65,7 +61,6 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Username Field */}
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-600">Username</label>
             <input
@@ -80,7 +75,6 @@ const SignUp = () => {
           </div>
 
 
-          {/* Password Field */}
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-600">Password</label>
             <input
@@ -94,7 +88,6 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
