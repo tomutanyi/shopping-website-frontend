@@ -119,7 +119,7 @@ const Products = () => {
             <div key={`${product.product_id}_${index}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4 border border-gray-300 rounded shadow-md">
               <div className="relative">
                 <img
-                  src={placeholderImageUrl}
+                  src={product.image_url === 'http://example.com' ? placeholderImageUrl : product.image_url}
                   alt={`Placeholder for ${product.product}`}
                   className="w-full h-48 object-cover mb-2 rounded-t"
                 />
