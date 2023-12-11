@@ -15,7 +15,7 @@ const SignUp = () => {
 
     // Perform actions on form submission sending data to server
     console.log('Form submitted:', { username, email, password });
-    fetch('http://127.0.0.1:5000/signup', {
+    fetch('https://shopping-database32.onrender.com/signup', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
