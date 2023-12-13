@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import About from './About/About';
 import SignUp from './Signup/SignUp';
 import Login from './Login/Login';
@@ -45,7 +45,7 @@ function App() {
         <Routes>
           <Route element={<Landing user={user} onLogout={handleLogout} />}>
             <Route path='/' element={<Home />} />
-            <Route path='/home' element={<Home />} />
+            <Route path='/home' lement={<Home />} />
             <Route path='/about' element={<About />}/>
             <Route path='/Products' element={<Products />} />
             <Route path='/signup' element={<SignUp />}/>

@@ -1,40 +1,47 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import bcrypt from 'bcryptjs';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  let navigate = useNavigate();
-
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Perform actions on form submission sending data to server
-    console.log('Form submitted:', { username, password });
+    // const hashedPassword = bcrypt.hashSync(password, 12);
+    // const decodedHash = bcrypt.getRounds(hashedPassword);
+
+    // console.log('Hashed Password:', hashedPassword);
+    // console.log('Decoded Hash:', decodedHash);
+
     fetch('https://shopping-database32.onrender.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: username,
-        password: password,
+        email: email,
+        password: password, // Send the hashed password to the server
       }),
     })
       .then((r) => {
         if (r.status === 200) {
-          toast.success('Login successful!');
-          navigate('/');
+          return r.json().then((user) => {
+            navigate('/products');
+            toast.success('Logged in successfully');
+            onLogin(user);
+          });
         } else {
-          toast.error('Incorrect username or password');
+          toast.error('Error Logging In');
         }
-      });
+      })
+      .catch((e) => console.log(e));
 
     // Clear form fields after submission
-    setUsername('');
+    setEmail('');
     setPassword('');
   };
 
@@ -43,25 +50,22 @@ const Login = () => {
       <div className="w-96 p-8 bg-white shadow-md rounded-md">
         <h2 className="text-3xl font-bold mb-6">Login</h2>
 
-        {/* Login Form */}
         <form onSubmit={handleSubmit}>
-          {/* Username Field */}
           <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-600">
-              Username
+            <label htmlFor="email" className="block text-gray-600">
+              Email
             </label>
             <input
-              type="text"
-              id="username"
+              type="email"
+              id="email"
               className="w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
-          {/* Password Field */}
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-600">
               Password
@@ -77,7 +81,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
@@ -85,7 +88,9 @@ const Login = () => {
             Login
           </button>
           <p className="mt-2">
-            <Link to="/signup">Don't have an account? Sign up here</Link>
+            <Link to="/signup">
+              Not yet Registered? <span className="text-blue-500 ml-2">Register here</span>
+            </Link>
           </p>
         </form>
       </div>
