@@ -49,10 +49,11 @@ const Products = () => {
     'https://i.pinimg.com/474x/8a/2a/73/8a2a73c4e85a9efc11a230e285a0db53.jpg';
 
   const filteredResults = result
-    ? result.filter((item) => item.rating >= minRating
-    &&
+    ? result.filter(
+        (item) =>
+          item.rating >= minRating &&
           (vendorName === '' || item.vendor.toLowerCase().includes(vendorName.toLowerCase()))
-    )
+      )
     : [];
 
   const sortedResults = filteredResults
@@ -83,10 +84,7 @@ const Products = () => {
         <button onClick={handleSearch} disabled={loading} className="bg-blue-500 text-white p-2">
           Search
         </button>
-      </div>
-
-      <div className="flex items-center mb-4">
-        <label className="mr-2">Minimum Rating:</label>
+        <label className="ml-4 mr-2">Minimum Rating:</label>
         <input
           type="number"
           value={minRating}
@@ -96,7 +94,7 @@ const Products = () => {
           step={1}
           className="border border-gray-300 p-2"
         />
-        <label className="mr-2">Vendor Name:</label>
+        <label className="ml-4 mr-2">Vendor Name:</label>
         <input
           type="text"
           value={vendorName}
