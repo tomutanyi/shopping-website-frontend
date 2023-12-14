@@ -19,12 +19,15 @@ function Navbar({ user, onLogout }) {
           <NavLink to="/about">About Us</NavLink>
           <NavLink to="/products">Products</NavLink>
           {user ? (
-            <button
-              className="px-2 bg-none hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg"
-              onClick={onLogout}
-            >
-              Logout
-            </button>
+            <>
+              <NavLink to="/history">Search History</NavLink>
+              <button
+                className="px-2 bg-none hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg"
+                onClick={onLogout}
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <div className="flex flex-col md:flex-row justify-end items-center md:items-start md:ml-4 mt-4 md:mt-0">
               <NavLink to="/signup">Sign Up</NavLink>
