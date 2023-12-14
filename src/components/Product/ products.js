@@ -7,9 +7,11 @@ const Products = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [vendorName, setVendorName] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc' for low to high, 'desc' for high to low
   const [sortBy, setSortBy] = useState('cost'); // Default sort by price
+  const [minRating, setMinRating] = useState(0); // Minimum rating filter
 
   const itemsPerPage = 8; // Change this based on your preference
   const pageCount = result ? Math.ceil(result.length / itemsPerPage) : 0;
@@ -26,21 +28,6 @@ const Products = () => {
       setSortOrder('asc');
     }
   };
-
-  const sortedResults = result
-    ? result.slice().sort((a, b) => {
-        if (sortOrder === 'asc') {
-          return a[sortBy] - b[sortBy];
-        } else {
-          return b[sortBy] - a[sortBy];
-        }
-      })
-    : [];
-
-  const paginatedResults = sortedResults.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
 
   const handleSearch = async () => {
     try {
@@ -61,19 +48,62 @@ const Products = () => {
   const placeholderImageUrl =
     'https://i.pinimg.com/474x/8a/2a/73/8a2a73c4e85a9efc11a230e285a0db53.jpg';
 
+  const filteredResults = result
+    ? result.filter((item) => item.rating >= minRating
+    &&
+          (vendorName === '' || item.vendor.toLowerCase().includes(vendorName.toLowerCase()))
+    )
+    : [];
+
+  const sortedResults = filteredResults
+    ? filteredResults.slice().sort((a, b) => {
+        if (sortOrder === 'asc') {
+          return a[sortBy] - b[sortBy];
+        } else {
+          return b[sortBy] - a[sortBy];
+        }
+      })
+    : [];
+
+  const paginatedResults = sortedResults.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
   return (
-    <div className="container mx-auto mt-8 max-w-2xl">
+    <div className="container mx-auto mt-8 max-w-.5xl px-1">
       <div className="flex items-center mb-4">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Enter product name"
-          className="border border-gray-300 p-2 mr-2 w-full"
+          className="border border-gray-300 p-2 mr-2 w"
         />
         <button onClick={handleSearch} disabled={loading} className="bg-blue-500 text-white p-2">
           Search
         </button>
+      </div>
+
+      <div className="flex items-center mb-4">
+        <label className="mr-2">Minimum Rating:</label>
+        <input
+          type="number"
+          value={minRating}
+          onChange={(e) => setMinRating(parseInt(e.target.value))}
+          min={0}
+          max={5}
+          step={1}
+          className="border border-gray-300 p-2"
+        />
+        <label className="mr-2">Vendor Name:</label>
+        <input
+          type="text"
+          value={vendorName}
+          onChange={(e) => setVendorName(e.target.value)}
+          placeholder="Enter vendor name"
+          className="border border-gray-300 p-2"
+        />
       </div>
 
       {loading && <p className="text-gray-700">Loading...</p>}
@@ -81,7 +111,7 @@ const Products = () => {
 
       {result && (
         <div>
-          <h2 className="text-2xl font-bold mb-4">Search Results</h2>
+          <h2 className="text-2xl font-bold mb-4 center">Search Results</h2>
 
           <div className="flex items-center mb-4">
             <label className="mr-2">Sort by Price:</label>
@@ -95,9 +125,9 @@ const Products = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+          <div className='flex flex-wrap justify-center gap-4'>
             {paginatedResults.map((item) => (
-              <div key={item.vendor_id} className="border border-gray-300 rounded p-4 shadow-md">
+              <div key={item.vendor_id} className='w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 p-4 border border-gray-300 rounded shadow-md'>
                 <div className="relative">
                   <img
                     src={item.image_url === 'http://example.com' ? placeholderImageUrl : item.image_url}
