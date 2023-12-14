@@ -1,46 +1,54 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
 
-  let navigate = useNavigate()
-
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Perform actions on form submission sending data to server
-    console.log('Form submitted:', { username, email, password });
+    if (password !== confirmPassword) {
+      setPasswordError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 8) {
+      setPasswordError('Password must be at least 8 characters long!');
+      return;
+    }
+
+    setPasswordError('');
+
     fetch('https://shopping-database32.onrender.com/signup', {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username: username,
         email: email,
         password: password,
-      })
+      }),
     })
-    .then(r=>{
-      if (r.status === 201){
-        toast.success("Account created successfully!")
-        navigate("/login")
-      } else{
-        toast.error("Error in account registration!")
-      }
-    })
+      .then((r) => {
+        if (r.status === 201) {
+          toast.success('Account created successfully!');
+          navigate('/login');
+        } else {
+          toast.error('Error in account registration!');
+        }
+      });
 
-    // Clear form fields after submission 
     setEmail('');
     setUsername('');
     setPassword('');
-
-    // toast.success('Sign up successful.')
+    setConfirmPassword('');
   };
 
   return (
@@ -48,10 +56,7 @@ const SignUp = () => {
       <div className="w-96 p-8 bg-white shadow-md rounded-md">
         <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
 
-        {/* Sign Up Form */}
         <form onSubmit={handleSubmit}>
-
-          {/* Email Field */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-600">Email</label>
             <input
@@ -65,7 +70,6 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Username Field */}
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-600">Username</label>
             <input
@@ -79,9 +83,7 @@ const SignUp = () => {
             />
           </div>
 
-
-          {/* Password Field */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="password" className="block text-gray-600">Password</label>
             <input
               type="password"
@@ -94,14 +96,30 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Submit Button */}
+          <div className="mb-6">
+            <label htmlFor="confirmPassword" className="block text-gray-600">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {passwordError && <p className="text-red-500">{passwordError}</p>}
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >
             Sign Up
           </button>
-          <p className='mt-2'><Link to='/login'>Already Registered? <span className='text-blue-500 ml-2'>Log in Here</span></Link></p>
+          <p className="mt-2">
+            <Link to="/login">Already Registered? <span className="text-blue-500 ml-2">Log in Here</span></Link>
+          </p>
         </form>
       </div>
     </div>
