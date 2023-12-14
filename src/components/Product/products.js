@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import ReactPaginate from 'react-paginate';
 
-const Products = () => {
+const Products = ({ user }) => {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,12 +32,25 @@ const Products = () => {
   const handleSearch = async () => {
     try {
       setLoading(true);
+
+      // Fetch vendor products
       const response = await fetch(
         `https://shopping-database32.onrender.com/vendor_products?product_name=${query}`
       );
       const data = await response.json();
       setResult(data);
-      setCurrentPage(0); // Reset current page when new results are fetched
+      setCurrentPage(0);
+
+      // Post the query to the user's search queries endpoint
+      if (user) {
+        await fetch(`https://shopping-database32.onrender.com/users/${user.id}/search_queries`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ search_query: query }),
+        });
+      }
     } catch (error) {
       setError(error.message);
     } finally {
