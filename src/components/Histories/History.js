@@ -28,7 +28,7 @@ const History = () => {
       backSpeed: 50,
       startDelay: 1000,
       backDelay: 1000,
-      showCursor: true,
+      showCursor: false,
       cursorChar: '|',
       onComplete: () => setFontIndex((prevFontIndex) => (prevFontIndex + 1) % 5),
     };
