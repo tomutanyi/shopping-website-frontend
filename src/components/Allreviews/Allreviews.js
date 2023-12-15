@@ -37,11 +37,13 @@ const AllReviews = () => {
   }
 
   const renderStarRating = (rating) => {
-    const stars = [];
-    for (let i = 0; i < rating; i++) {
-      stars.push(<FaStar key={i} className="text-yellow-500" />);
-    }
-    return stars;
+    return (
+      <div className="flex items-center">
+        {Array.from({ length: rating }, (_, index) => (
+          <FaStar key={index} className="text-yellow-500" />
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -49,9 +51,7 @@ const AllReviews = () => {
       {reviews.map((review) => (
         <div key={review.id} className="bg-white p-4 rounded-md shadow-md">
           <p className="text-lg font-semibold">{review.username}</p>
-          <div className="flex items-center">
-            <p className="text-gray-500 mb-2">Rating: {renderStarRating(review.star_rating)}</p>
-          </div>
+          {renderStarRating(review.star_rating)}
           <p>{review.description}</p>
         </div>
       ))}
