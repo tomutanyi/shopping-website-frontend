@@ -66,9 +66,15 @@ const AllReviews = () => {
         </div>
       ))}
 
-      <div className="pagination">
+      <div className="pagination flex justify-center mt-4">
         {pageNumbers.map((number) => (
-          <span key={number} className={currentPage === number ? 'active' : ''} onClick={() => paginate(number)}>
+          <span
+            key={number}
+            className={`px-3 py-2 mx-1 cursor-pointer ${
+              currentPage === number ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'
+            }`}
+            onClick={() => paginate(number)}
+          >
             {number}
           </span>
         ))}
