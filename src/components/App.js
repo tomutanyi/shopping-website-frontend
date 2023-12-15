@@ -7,7 +7,7 @@ import Landing from './landing/Landing';
 import NotFound from './NotFound/NotFound';
 import Home from './landing/home/Home';
 import Products from './Product/products';
-import AllReviews from './Allreviews/AllReviews';
+import Allreviews from './Allreviews/Allreviews';
 import History from './History/history';
 import toast, {Toaster} from 'react-hot-toast'
 
@@ -49,7 +49,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
             <Route path='/about' element={<About />}/>
-            <Route path='/allreviews' element={<AllReviews />} />
+            <Route path='/allreviews' element={<Allreviews />} />
             <Route path='/Products' element={<Products user={user} />} />
             <Route path="/history" element={<History userId={user ? user.id : null} />} />
             <Route path='/signup' element={<SignUp />}/>
