@@ -18,6 +18,7 @@ function Navbar({ user, onLogout }) {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/about">About Us</NavLink>
           <NavLink to="/products">Products</NavLink>
+          <NavLink to="/reviews">Reviews</NavLink>
           {user ? (
             <>
               <NavLink to="/history">Search History</NavLink>

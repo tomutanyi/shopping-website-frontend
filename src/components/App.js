@@ -8,6 +8,7 @@ import NotFound from './NotFound/NotFound';
 import Home from './landing/home/Home';
 import Products from './Product/products';
 import History from './History/history';
+import Reviews from './Review/Reviews';
 import toast, {Toaster} from 'react-hot-toast'
 
 function App() {
@@ -52,6 +53,8 @@ function App() {
             <Route path="/history" element={<History userId={user ? user.id : null} />} />
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/login' element={<Login onLogin={handleLogIn} />} />
+            <Route path='/review' element={<Reviews />} />
+
           
           </Route>
           <Route path='*' element={<NotFound />} />
