@@ -1,12 +1,13 @@
 // components/Allreviews/AllReviews.js
 import React, { useState, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 
 const AllReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 10;
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -28,13 +29,10 @@ const AllReviews = () => {
     fetchReviews();
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  // Calculate current reviews based on pagination
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 
   const renderStarRating = (rating) => {
     return (
@@ -46,15 +44,35 @@ const AllReviews = () => {
     );
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageNumbers = Array.from({ length: Math.ceil(reviews.length / reviewsPerPage) }, (_, index) => index + 1);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="all-reviews grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {reviews.map((review) => (
+      {currentReviews.map((review) => (
         <div key={review.id} className="bg-white p-4 rounded-md shadow-md">
           <p className="text-lg font-semibold">{review.username}</p>
           {renderStarRating(review.star_rating)}
           <p>{review.description}</p>
         </div>
       ))}
+
+      <div className="pagination">
+        {pageNumbers.map((number) => (
+          <span key={number} className={currentPage === number ? 'active' : ''} onClick={() => paginate(number)}>
+            {number}
+          </span>
+        ))}
+      </div>
     </div>
   );
 };
