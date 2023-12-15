@@ -16,6 +16,7 @@ function Navbar({ user, onLogout }) {
         </div>
         <div className="md:w-1/2 py-4 flex flex-col md:flex-row justify-between md:px-5">
           <NavLink to="/">Home</NavLink>
+          <NavLink to="/allreviews">All Reviews</NavLink>
           <NavLink to="/about">About Us</NavLink>
           <NavLink to="/products">Products</NavLink>
           {user ? (
