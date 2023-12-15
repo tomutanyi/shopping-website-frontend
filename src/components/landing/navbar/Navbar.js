@@ -16,12 +16,12 @@ function Navbar({ user, onLogout }) {
         </div>
         <div className="md:w-1/2 py-4 flex flex-col md:flex-row justify-between md:px-5">
           <NavLink to="/">Home</NavLink>
+          <NavLink to="/allreviews">All Reviews</NavLink>
           <NavLink to="/about">About Us</NavLink>
           <NavLink to="/products">Products</NavLink>
           {user ? (
             <>
               <NavLink to="/history">Search History</NavLink>
-              <NavLink to="/allreviews">All Reviews</NavLink>
               <button
                 className="px-2 bg-none hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg"
                 onClick={onLogout}

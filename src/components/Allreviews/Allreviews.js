@@ -1,5 +1,6 @@
 // components/Allreviews/AllReviews.js
 import React, { useState, useEffect } from 'react';
+import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const AllReviews = () => {
@@ -35,19 +36,25 @@ const AllReviews = () => {
     return <p>Error: {error}</p>;
   }
 
+  const renderStarRating = (rating) => {
+    const stars = [];
+    for (let i = 0; i < rating; i++) {
+      stars.push(<FaStar key={i} className="text-yellow-500" />);
+    }
+    return stars;
+  };
+
   return (
-    <div className="all-reviews">
-      <h2>All Reviews</h2>
-      <ul>
-        {reviews.map((review) => (
-          <li key={review.id}>
-            <p>User: {review.username}</p>
-            <p>Rating: {review.star_rating}</p>
-            <p>Comment: {review.description}</p>
-            {/* Add more details as needed */}
-          </li>
-        ))}
-      </ul>
+    <div className="all-reviews grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {reviews.map((review) => (
+        <div key={review.id} className="bg-white p-4 rounded-md shadow-md">
+          <p className="text-lg font-semibold">{review.username}</p>
+          <div className="flex items-center">
+            <p className="text-gray-500 mb-2">Rating: {renderStarRating(review.star_rating)}</p>
+          </div>
+          <p>{review.description}</p>
+        </div>
+      ))}
     </div>
   );
 };
