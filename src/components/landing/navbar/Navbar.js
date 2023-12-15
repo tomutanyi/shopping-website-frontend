@@ -21,6 +21,7 @@ function Navbar({ user, onLogout }) {
           {user ? (
             <>
               <NavLink to="/history">Search History</NavLink>
+              <NavLink to="/allreviews">All Reviews</NavLink>
               <button
                 className="px-2 bg-none hover:bg-blue-700 hover:text-white hover:cursor-pointer rounded-lg"
                 onClick={onLogout}
